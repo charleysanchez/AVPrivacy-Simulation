@@ -8,6 +8,7 @@ __pycache__/
 
 carla_sim/
 data/
+carla_sessions/
 
 # Distribution / packaging
 .Python

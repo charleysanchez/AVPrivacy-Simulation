@@ -20,22 +20,6 @@ This README documents the **updated** anonymization pipeline and how to run it l
 
 ---
 
-## Repository structure
-```
-.
-├─ av_privacy_masker.py          # Core class (SCRFD, mask builders, fast anonymizer)
-├─ notebooks/
-│  └─ 01_quickstart_pipeline.ipynb
-├─ scripts/
-│  ├─ eval_compare_sam.py        # DICE / Recall against SAM masks (aligned)
-│  ├─ batch_make_masks.py        # Produce .npy masks per session
-│  └─ fps_latency_benchmark.py   # End‑to‑end timing with fast_pixelate
-├─ assets/                       # Diagrams / gifs for README
-└─ README.md
-```
-
----
-
 ## Installation
 
 ### CPU/GPU desktop (conda recommended)
@@ -105,22 +89,6 @@ cv2.imwrite("out_anon.jpg", rgb_anon)
 ## Evaluation (Dice / Recall) vs. SAM
 
 We compare our masks against SAM‑generated masks for the same sessions. The evaluation script supports strict alignment (start/stop frames, small shift search), environment mapping, and per‑facecount aggregation.
-
-**Example:**
-```bash
-python3 scripts/eval_compare_sam.py \
-  --sessions-root /path/to/images \
-  --our        /path/to/masks/our_algo \
-  --sam        /path/to/masks/sam \
-  --mapping-csv /path/to/masks/mapping.csv \
-  --out-csv     /path/to/output/env_agg_aligned_strict.csv \
-  --allow-resize \
-  --only-filestarts \
-  --strict \
-  --shift-search 3 \
-  --weighting session \
-  --verbose
-```
 
 - **Dice**: \( 2|A∩B| / (|A|+|B|) \) — overlap similarity of our mask vs. SAM’s.
 - **Recall**: \( |A∩B| / |B| \) — how much of SAM’s mask we covered.
